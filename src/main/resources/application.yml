@@ -3,6 +3,10 @@ spring:
     name: weather-api
   config:
     import: optional:file:.env[.properties]
+  data:
+    redis:
+      host: localhost
+      port: 6379
 weather:
   api:
     key: ${WEATHER_API_KEY}

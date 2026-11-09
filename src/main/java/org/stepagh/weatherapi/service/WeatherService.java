@@ -1,28 +1,27 @@
 package org.stepagh.weatherapi.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpRequest;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatusCode;
-import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import org.stepagh.weatherapi.dto.WeatherApiResponse;
-import org.stepagh.weatherapi.exceptions.BadRequestException;
 import org.stepagh.weatherapi.exceptions.ExternalClientException;
 import org.stepagh.weatherapi.exceptions.ExternalServiceException;
-import org.stepagh.weatherapi.exceptions.NotFoundException;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class WeatherService {
     private final RestClient weatherClient;
 
-
+    @Cacheable(value = "weatherCache", key = "#city.toLowerCase() + ':' + #date")
     public WeatherApiResponse fetchWeatherFromApi(String city, LocalDate date) {
+        log.info("Метод вызван: идет запрос к внешнему API");
         return weatherClient.get()
                 .uri("/{city}{date}", city, date)
                 .retrieve()
