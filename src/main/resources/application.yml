@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: weather-api
+  config:
+    import: optional:file:.env[.properties]
+weather:
+  api:
+    key: ${WEATHER_API_KEY}
