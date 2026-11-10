@@ -11,7 +11,7 @@ import org.stepagh.weatherapi.service.WeatherService;
 import java.time.LocalDate;
 
 @RestController
-@RequestMapping("/v1")
+@RequestMapping("api/v1")
 @RequiredArgsConstructor
 public class WeatherController {
 
