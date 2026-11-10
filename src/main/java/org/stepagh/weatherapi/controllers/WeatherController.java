@@ -16,7 +16,6 @@ import java.time.LocalDate;
 public class WeatherController {
 
     private final WeatherService weatherService;
-    //вспомнить про основы в аннотациях
     @GetMapping("/weather/{city}/{date}")
     public WeatherApiResponse getWeather(@PathVariable String city, @PathVariable LocalDate date) {
         return weatherService.fetchWeatherFromApi(city, date);
